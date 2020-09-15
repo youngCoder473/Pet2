@@ -1,12 +1,13 @@
 //Create variables here
-
+var currentTime
 var dog;
 var happyDog;
 var dogSprite;
 var foodStock;
 var dataBase;
-var time;
 var lastFed;
+var gamestate;
+var js;
 function preload()
 {
   dog = loadImage("images/dogImg.png");
@@ -17,6 +18,7 @@ function preload()
 function setup() {
   createCanvas(800, 700);
   food = new Food();
+  currentTime = hour()/12
   text("food="+foodStock,100,20);
   database = firebase.database();
   dogSprite = createSprite(600,220,50,50);
@@ -31,6 +33,7 @@ function setup() {
   supply = createButton("Buy food");
   supply.position(800,95);
   supply.mousePressed(food.addFood);
+
 }
 
 
@@ -40,6 +43,7 @@ function draw() {
     lastFed = data.val();
   });
   food.getFoodStock();
+  gs.currentTime();
   textSize(15);
   stroke("black");
   fill("white")
