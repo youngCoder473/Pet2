@@ -6,22 +6,30 @@ var dogSprite;
 var foodStock;
 var dataBase;
 var lastFed;
-var gamestate;
+var gameState;
 var js;
+var food;
+var gs;
+var sad
 function preload()
 {
   dog = loadImage("images/dogImg.png");
   happyDog = loadImage("images/dogImg1.png");
+  sad = loadImage("images/deadDog.png");
+  play = loadImage("images/living Room.png")
 	//load images here
 }
 
 function setup() {
   createCanvas(800, 700);
   food = new Food();
+  gs = new GameState();
+
   currentTime = hour()/12
   text("food="+foodStock,100,20);
   database = firebase.database();
   dogSprite = createSprite(600,220,50,50);
+  gs.getGameState();
   dogSprite.addImage("dog",dog);
   dog.resize(150,150);
   dogSprite.addImage("happyDog",happyDog);
@@ -43,7 +51,7 @@ function draw() {
     lastFed = data.val();
   });
   food.getFoodStock();
-  gs.currentTime();
+  
   textSize(15);
   stroke("black");
   fill("white")
@@ -74,8 +82,19 @@ function draw() {
     fill("white")
     text("LAST FED "+lastFed+"AM",500,95);
   }
-  //add styles here
+  gs.currentTime();
+  gs.changeGameState();
 
+  if(gameState == "playing"){
+    background("green");
+  }
+  if(gameState == "sadDog"){
+    background("red");
+  }
+
+  if(gameState = bathing){
+    background("blue")
+  }
 }
 
 

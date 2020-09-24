@@ -3,8 +3,8 @@ class GameState{
 
     }
     getGameState(){
-        dataBase.ref("gameState").on(value,function(data){
-            gamestate = data.val()
+        database.ref("gameState").on("value",function(data){
+            gameState = data.val()
           });
     }
     currentTime(){
@@ -16,19 +16,25 @@ class GameState{
         });
     }
     changeGameState(){
+       
+       if(currentTime == lastFed){
+           gameState = "happyDog"
+           this.updateGameState(gameState);
+       }
         if(currentTime == lastFed+1){
-            gamestate = "playing"
-            updateGameState();
+            gameState = "playing"
+            this.updateGameState(gameState);
         }
         if(currentTime == lastFed>=2 && currentTime == lastFed<=4){
-            gamestate = "bathing"
-            updateGameState();
+            gameState = "bathing"
+            this.updateGameState(gameState);
         }
         else{
-            gamestate = "sadDog"
-            updateGameState();
+            gameState = "sadDog"
+            this.updateGameState(gameState);
         }
-        console.log("sup")
+        console.log("sup");
+       console.log(gameState);
     }
     display(){
         
